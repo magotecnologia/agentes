@@ -2,7 +2,7 @@
 #include <vector>
 #include <list>
 #include <string>
-
+#include <windows.h>
 struct Room
 {
     public:
@@ -32,6 +32,27 @@ struct Step
     Room persection;
     bool reaction;    
 };
+
+//set fullscreen
+void toFullscreen(){
+	keybd_event(VK_MENU,
+                0x38,
+                0,
+                0);
+    keybd_event(VK_RETURN,
+                0x1c,
+                0,
+                0);
+    keybd_event(VK_RETURN,
+                0x1c,
+                KEYEVENTF_KEYUP,
+                0);
+    keybd_event(VK_MENU,
+                0x38,
+                KEYEVENTF_KEYUP,
+                0);
+    return;
+}
 
 class Agent{
     std::list<Step> history;
@@ -107,6 +128,7 @@ class Agent{
 
 int main()
 {
+	toFullscreen();
     World world=World();
     Room first=Room();
     first.name='A';
