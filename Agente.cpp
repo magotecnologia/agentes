@@ -13,7 +13,6 @@ struct Room
 class World{
     std::vector<Room> rooms;
     public:
-    World(){}
     void addRoom(Room *room){
         rooms.push_back(*room);
     }
@@ -37,13 +36,12 @@ struct Step
 class Agent{
     std::list<Step> history;
     int roomNumber;
-    World world;
+    World& world;
     bool lastAction;
 
     public:
-    Agent(World world){
-        this->world= world;
-    }
+    Agent (World& world):world(world){}
+	
     void start(){
         roomNumber=0;
         while(roomNumber<world.size()){
