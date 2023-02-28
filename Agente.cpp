@@ -130,36 +130,47 @@ int main()
 {
 	toFullscreen();
     World world=World();
-    Room first=Room();
-    first.name='A';
-    first.isClean=true;
-    Room second=Room();
-    second.name='B';
-    second.isClean=false;
-    Room third=Room();
-    third.name='C';
-    third.isClean=true;
-    Room four=Room();
-    four.name='D';
-    four.isClean=false;
-    Room five=Room();
-    five.name='E';
-    five.isClean=false;
-    Room six=Room();
-    six.name='F';
-    six.isClean=false;
-    Room seven=Room();
-    seven.name='G';
-    seven.isClean=true;
-    Room eight=Room();
-    eight.name='H';
-    eight.isClean=true;
-    Room nine=Room();
-    nine.name='I';
-    nine.isClean=false;
-    Room ten=Room();
-    ten.name='J';
-    ten.isClean=false;
+    
+    Room first			= Room();
+    first.name			= 'A';
+    first.isClean		= true;
+    
+    Room second			= Room();
+    second.name			= 'B';
+    second.isClean		= false;
+    
+    Room third			= Room();
+    third.name			= 'C';
+    third.isClean		= true;
+    
+    Room four			= Room();
+    four.name			= 'D';
+    four.isClean		= false;
+    
+    Room five			= Room();
+    five.name			= 'E';
+    five.isClean		= false;
+    
+    Room six			= Room();
+    six.name			= 'F';
+    six.isClean			= false;
+    
+    Room seven			= Room();
+    seven.name			= 'G';
+    seven.isClean		= true;
+    
+    Room eight			= Room();
+    eight.name			= 'H';
+    eight.isClean		= true;
+    
+    Room nine			= Room();
+    nine.name			= 'I';
+    nine.isClean		= false;
+    
+    Room ten			= Room();
+    ten.isClean			= false;
+    ten.name			= 'J';
+    
     world.addRoom(&first);
     world.addRoom(&second);
     world.addRoom(&third);
