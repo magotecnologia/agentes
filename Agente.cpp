@@ -2,7 +2,7 @@
 #include <vector>
 #include <list>
 #include <string>
-
+#include <windows.h>
 struct Room
 {
     public:
@@ -32,6 +32,27 @@ struct Step
     Room persection;
     bool reaction;    
 };
+
+//set fullscreen
+void toFullscreen(){
+	keybd_event(VK_MENU,
+                0x38,
+                0,
+                0);
+    keybd_event(VK_RETURN,
+                0x1c,
+                0,
+                0);
+    keybd_event(VK_RETURN,
+                0x1c,
+                KEYEVENTF_KEYUP,
+                0);
+    keybd_event(VK_MENU,
+                0x38,
+                KEYEVENTF_KEYUP,
+                0);
+    return;
+}
 
 class Agent{
     std::list<Step> history;
@@ -107,37 +128,49 @@ class Agent{
 
 int main()
 {
+	toFullscreen();
     World world=World();
-    Room first=Room();
-    first.name='A';
-    first.isClean=true;
-    Room second=Room();
-    second.name='B';
-    second.isClean=false;
-    Room third=Room();
-    third.name='C';
-    third.isClean=true;
-    Room four=Room();
-    four.name='D';
-    four.isClean=false;
-    Room five=Room();
-    five.name='E';
-    five.isClean=false;
-    Room six=Room();
-    six.name='F';
-    six.isClean=false;
-    Room seven=Room();
-    seven.name='G';
-    seven.isClean=true;
-    Room eight=Room();
-    eight.name='H';
-    eight.isClean=true;
-    Room nine=Room();
-    nine.name='I';
-    nine.isClean=false;
-    Room ten=Room();
-    ten.name='J';
-    ten.isClean=false;
+    
+    Room first			= Room();
+    first.name			= 'A';
+    first.isClean		= true;
+    
+    Room second			= Room();
+    second.name			= 'B';
+    second.isClean		= false;
+    
+    Room third			= Room();
+    third.name			= 'C';
+    third.isClean		= true;
+    
+    Room four			= Room();
+    four.name			= 'D';
+    four.isClean		= false;
+    
+    Room five			= Room();
+    five.name			= 'E';
+    five.isClean		= false;
+    
+    Room six			= Room();
+    six.name			= 'F';
+    six.isClean			= false;
+    
+    Room seven			= Room();
+    seven.name			= 'G';
+    seven.isClean		= true;
+    
+    Room eight			= Room();
+    eight.name			= 'H';
+    eight.isClean		= true;
+    
+    Room nine			= Room();
+    nine.name			= 'I';
+    nine.isClean		= false;
+    
+    Room ten			= Room();
+    ten.isClean			= false;
+    ten.name			= 'J';
+    
     world.addRoom(&first);
     world.addRoom(&second);
     world.addRoom(&third);
