@@ -3,6 +3,9 @@
 #include <list>
 #include <string>
 #include <windows.h>
+#include <cmath>
+#include <cstdlib>
+
 struct Room
 {
     public:
@@ -13,6 +16,7 @@ struct Room
 class World{
     std::vector<Room> rooms;
     public:
+    World(int size);
     void addRoom(Room *room){
         rooms.push_back(*room);
     }
@@ -25,10 +29,67 @@ class World{
     int size(){
         return rooms.size();
         }
+    void show(){
+        for(int i=0; i<rooms.size();i++){
+            printf("| %d |",i);
+        }
+        printf("\n");
+        
+        for(int i=0; i<rooms.size();i++){
+            char status;
+            if(rooms.at(i).isClean){
+                status= 'O';
+            }
+            else{
+                status= 'X';
+            }
+            printf("| %c |",status);
+        }
+        printf("\n");
+    } 
+    void remoteRoom(){
+        printf("Eliminando el cuarto %d \n",rooms.size());
+        rooms.pop_back();
+    }
+    
+    void mutate(){
+        bool isGrowing=generateBool();
+        if(!isGrowing || growingStreak==10 ){
+            remoteRoom();
+        }
+        else{   
+            Room newRoom=Room();
+            newRoom.isClean=generateBool();
+            printf("Creando un nuevo cuarto \n");
+            addRoom(&newRoom);
+        }
+        show();
+    }
+    private:
+    Room createRandomRoom(){
+        Room newRoom=Room();
+        newRoom.isClean=generateBool();
+        return newRoom;
+    }
+    bool generateBool(){
+        static const int shift = static_cast<int>(std::log2(RAND_MAX));
+        bool isOdd=(rand() >> shift) & 1;;
+        return (isOdd);
+    }
+    int growingStreak=0;
+    
 };
 
-struct Step
+World::World(int size){
+    for(int i=0;i<size;i++){
+        Room newRoom=createRandomRoom();
+        addRoom(&newRoom);
+    }
+}
+
+class Step
 {
+    public:
     Room persection;
     bool reaction;    
 };
@@ -115,6 +176,7 @@ class Agent{
             clean(roomNumber);
         }
         return room.isClean;
+        world.mutate();
     }
     
     void clean(int n){
@@ -129,58 +191,8 @@ class Agent{
 int main()
 {
 	toFullscreen();
-    World world=World();
-    
-    Room first			= Room();
-    first.name			= 'A';
-    first.isClean		= true;
-    
-    Room second			= Room();
-    second.name			= 'B';
-    second.isClean		= false;
-    
-    Room third			= Room();
-    third.name			= 'C';
-    third.isClean		= true;
-    
-    Room four			= Room();
-    four.name			= 'D';
-    four.isClean		= false;
-    
-    Room five			= Room();
-    five.name			= 'E';
-    five.isClean		= false;
-    
-    Room six			= Room();
-    six.name			= 'F';
-    six.isClean			= false;
-    
-    Room seven			= Room();
-    seven.name			= 'G';
-    seven.isClean		= true;
-    
-    Room eight			= Room();
-    eight.name			= 'H';
-    eight.isClean		= true;
-    
-    Room nine			= Room();
-    nine.name			= 'I';
-    nine.isClean		= false;
-    
-    Room ten			= Room();
-    ten.isClean			= false;
-    ten.name			= 'J';
-    
-    world.addRoom(&first);
-    world.addRoom(&second);
-    world.addRoom(&third);
-    world.addRoom(&four);
-    world.addRoom(&five);
-    world.addRoom(&six);
-    world.addRoom(&seven);
-    world.addRoom(&eight);
-    world.addRoom(&nine);
-    world.addRoom(&ten);
+    World world=World(10);
     Agent agent=Agent(world);
+    world.show();
     agent.start();
 }
