@@ -175,8 +175,8 @@ class Agent{
         else{
             clean(roomNumber);
         }
-        return room.isClean;
         world.mutate();
+        return room.isClean;
     }
     
     void clean(int n){
